@@ -2,6 +2,7 @@ import React from "react";
 import SwitchButton from "./Button";
 import Header from "./Header";
 import Main from "./Main";
+import modeContext from './context'
 
 class App extends React.Component {
   state = {
@@ -16,9 +17,13 @@ class App extends React.Component {
     let { isDarkMode } = this.state;
     return (
       <div className={`bg ${isDarkMode ? "bg-dark" : "bg-light"}`}>
-        <Header isDarkMode={isDarkMode} />
-        <Main isDarkMode={isDarkMode} />
-        <SwitchButton isDarkMode={isDarkMode} changeMode={this.changeMode} />
+        <modeContext.Provider
+        value={{mode:isDarkMode,changeMode:this.changeMode}}
+        >
+        <Header />
+        <Main  />
+        <SwitchButton/>
+        </modeContext.Provider>
       </div>
     );
   }
